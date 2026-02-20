@@ -8,6 +8,11 @@
     <a href="https://aegis-net-pi.vercel.app"><b>🌐 Live Demo</b></a> •
     <a href="PROPOSAL.md"><b>📄 Official Proposal</b></a> 
   </p>
+  <p align="center">
+    <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
+    <br>
+    <i>© 2024 Pandu Dargah. All Rights Reserved.</i>
+  </p>
 </div>
 
 <br />
