@@ -42,7 +42,45 @@ Miners and Validators are rewarded in `$TAO` depending on their speed, accuracy,
 
 ---
 
-## 🖥️ Live Application & Architecture
+## �️ Roadmap to Mainnet
+
+Our comprehensive roadmap details the progression from early prototype to full Bittensor integration:
+
+### Q1 2024: Architecture & Proof of Concept  (✅ CURRENT)
+* **Goal:** Design the theoretical foundation and construct a high-fidelity visual prototype.
+* **Milestones:**
+  * Subnet economics and reward landscape formulation.
+  * Local LLM benchmarking for Solidity & Rust vulnerability tasks.
+  * MVP Dashboard Delivery (Client Portal + Subnet Explorer).
+  * Formal Project Proposal Submission for the Ideathon.
+
+### Q2 2024: Bittensor Testnet Deployment 
+* **Goal:** Launch the Aegis-Net subnet protocol directly on the Bittensor Testnet.
+* **Milestones:**
+  * Deploy custom `Miner` and `Validator` node scripts connecting directly to the network.
+  * Implement the *Proof-of-Audit* consensus mechanism.
+  * Create the initial synthetic data generation pipeline to evaluate Miners.
+  * Connect the Web UI to the live Testnet endpoint for real-time data feeding.
+
+### Q3 2024: Open Alpha & Smart Contract Integration
+* **Goal:** Allow real-world Web3 protocols to submit their contracts for active auditing.
+* **Milestones:**
+  * Establish Web3-authentication (MetaMask/WalletConnect) integration on the Client Dashboard.
+  * Enable multi-chain scanning functionality (Ethereum, Arbitrum, Optimism).
+  * Introduce an automated simulation fork engine within the Validator layer.
+  * Start processing live contracts and distributing actual `$TAO` emission rewards to Miners.
+
+### Q4 2024: Mainnet Launch & Protocol Expansion 
+* **Goal:** Officially launch the Aegis-Net subnet on the Bittensor Mainnet.
+* **Milestones:**
+  * Initiate the transition to the Mainnet utilizing final consensus parameters.
+  * Partner with major EVM ecosystem bug bounty platforms to route exploits found.
+  * Introduce advanced zero-day heuristic detection capabilities on native Minters. 
+  * Full decentralization and open-sourcing of the sub-protocol modules.
+
+---
+
+## �🖥️ Live Application & Architecture
 
 ### Web Interface & Deployment
 The UI is fully live and provides a realistic representation of how users interact with the Aegis-Net system. It simulates the operations, findings, and explorer views of our proposed Subnet. 
@@ -92,7 +130,7 @@ To view the simulation dashboard locally:
 
 ---
 
-## 🤝 Project Roadmap 
+## 🤝 Project Operation Status (Ideathon Submission)
 
 | Fase | Deskripsi | Status | Keterangan |
 |---|---|---|---|
