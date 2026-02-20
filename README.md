@@ -6,7 +6,8 @@
   </p>
   <p align="center">
     <a href="https://aegis-net-pi.vercel.app"><b>🌐 Live Demo</b></a> •
-    <a href="PROPOSAL.md"><b>📄 Official Proposal</b></a> 
+    <a href="PROPOSAL.md"><b>📄 Official Proposal</b></a> •
+    <a href="PITCH_DECK.md"><b>📊 Pitch Deck</b></a>
   </p>
   <p align="center">
     <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
@@ -96,10 +97,11 @@ The UI is fully live and provides a realistic representation of how users intera
 
 ---
 
-## 📄 Documentation (Fase 2)
+## 📄 Documentation (Fase 2 & Fase 3)
 
 We have formalized our logic and conceptual design into a complete proposal mapped to the capabilities of the dashboard. This document defines the exact workflow between Miners and Validators. 
 * Please refer to the **[PROPOSAL.md](PROPOSAL.md)** file within this repository. 
+* For the presentation, refer to the **[PITCH_DECK.md](PITCH_DECK.md)** file.
 
 *(This serves as our core theoretical framework specifically prepared for the Hackathon/Ideathon structured submission).*
 
@@ -135,8 +137,8 @@ To view the simulation dashboard locally:
 | Fase | Deskripsi | Status | Keterangan |
 |---|---|---|---|
 | **FASE 1** | UI/UX & Deployment | 🟢 SELESAI | Desain Web selesai, Repo GitHub siap, dan Live di Vercel. Senjata utama sudah di tangan! |
-| **FASE 2** | **Dokumen Proposal (Notion/PDF)** | 🟢 **SELESAI** | *Logika website telah dituangkan dalam format formal ke dalam `PROPOSAL.md` & `README.md`.* |
-| **FASE 3** | Pitch Deck Bisnis | ⚪ PENDING | Pembuatan 10 Halaman slide presentasi sesuai konten. |
+| **FASE 2** | Dokumen Proposal (Notion/PDF) | 🟢 SELESAI | Logika website telah dituangkan dalam format formal ke dalam `PROPOSAL.md` & `README.md`. |
+| **FASE 3** | **Pitch Deck Bisnis (10 Halaman)** | 🟢 **SELESAI** | *Pitch Deck terstruktur 10 slide telah dibuat berdasar struktur web di `PITCH_DECK.md`* |
 | **FASE 4** | Video Penjelasan | ⚪ PENDING | Rekaman layar penjelasan UI/UX dan arsitektur simulasi Vercel (5-10 menit). |
 | **FASE 5** | Publikasi Twitter (X) | ⚪ PENDING | Membuat utas/thread pengumuman publik untuk memenuhi syarat kompetisi. |
 
