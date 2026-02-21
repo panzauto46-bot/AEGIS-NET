@@ -202,7 +202,7 @@ Miners and Validators are rewarded in `$TAO` depending on their speed, accuracy,
 ## 🖥️ Live Application & Architecture
 
 ### Web Interface & Deployment
-The UI is fully live and provides a realistic, interactive representation of how users will interact with the Aegis-Net system. It simulates the operations, findings, and explorer views of our proposed Subnet with high fidelity.
+The UI is fully live and features a **Working Prototype of the Miner Logic**. The **'Live Audit Scanner'** connects directly to a backend API running **Groq LPU (LLaMA-3.3-70B)** and **DeepSeek V3**, allowing users to paste real Solidity code and receive instant vulnerability reports, demonstrating the baseline intelligence of an Aegis-Net Miner.
 
 * ⚡ **Live Demo:** [https://aegis-net-pi.vercel.app](https://aegis-net-pi.vercel.app)
 * 🚀 **Deployment:** Fully deployed on Vercel with automatic CI/CD triggers from GitHub.
