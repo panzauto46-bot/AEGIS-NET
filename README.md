@@ -246,5 +246,5 @@ npm run dev
   <br>
   <sub><b>Aegis-Net</b> — Building the unhackable layer over Web3 protocols.</sub>
   <br>
-  <sub>© 2024 Pandu Dargah. All Rights Reserved.</sub>
+  <sub>© 2026 Pandu Dargah. All Rights Reserved.</sub>
 </div>
