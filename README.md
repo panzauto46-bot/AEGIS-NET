@@ -28,16 +28,24 @@ It aims to replace the slow, expensive, and centralized auditing processes curre
 
 ## 🎯 Key Features and Offerings
 
-### 1. Peer-to-Peer AI Auditing (Miners)
+### 1. 🔬 Live AI Smart Contract Scanner `NEW`
+A **production-ready** AI-powered auditing tool integrated directly into the platform. Users paste Solidity source code and receive a detailed security audit report generated in real-time by large language models.
+
+- **Dual AI Engine:** Choose between **Groq (LLaMA-3 70B)** for ultra-fast inference or **DeepSeek V3** for deep reasoning analysis
+- **Zero-Day Detection:** Identifies Reentrancy, Flash Loan attacks, Integer Overflow, Logic Flaws, Oracle Manipulation, and more
+- **Markdown Audit Reports:** Professionally formatted reports with severity badges, exploit scenarios, and fix recommendations
+- **Cyberpunk UI:** Dark mode code editor with animated scanning states, progress tracking, and token usage stats
+
+### 2. Peer-to-Peer AI Auditing (Miners)
 Unlike a single centralized entity running static tools, Aegis-Net distributes contract bytes to hundreds of active AI miners fine-tuned for smart contract vulnerabilities (`DeepSeek-Audit-7B`, `Llama-Solidity-13B`, `CodeLlama-Security-34B`, etc.). These algorithms hunt for Reentrancy, Flash Loan exploits, Integer Overflows, Unchecked External Calls, and other sophisticated logical flaws.
 
-### 2. Validator Consensus Mechanism
+### 3. Validator Consensus Mechanism
 Every potential threat caught by a miner is forwarded to the Validator layer. Validators verify the validity of the threat by executing simulations in an automated forked environment, eliminating false positives and ensuring zero false alarms for the end user.
 
-### 3. Incentivization via TAO
+### 4. Incentivization via TAO
 Miners and Validators are rewarded in `$TAO` depending on their speed, accuracy, and consensus rate. This economic framework keeps Aegis-Net on the cutting-edge by continuously self-optimizing its threat-detection engines.
 
-### 4. Interactive and Seamless Dashboards
+### 5. Interactive and Seamless Dashboards
 * **Client Portal (The Intercept):** An intuitive platform for developers to deploy contracts and run initial on-demand scans, returning insights down to the exact buggy code lines.
 * **Subnet Explorer (The Hive):** A real-time transparent visualization of global exploits found, top-ranking miners, live emission rates, and active validators.
 
@@ -89,18 +97,21 @@ Miners and Validators are rewarded in `$TAO` depending on their speed, accuracy,
 
 | # | Deliverable | Status |
 |:-:|:--|:-:|
-| 1 | Fine-tune `DeepSeek-Audit-7B` on curated Solidity vulnerability datasets (SWC Registry, Damn Vulnerable DeFi) | 🔄 |
-| 2 | Fine-tune `CodeLlama-Security-34B` for Rust/Anchor (Solana) contract analysis | 🔄 |
-| 3 | Develop the **Proof-of-Audit** consensus algorithm specification | ⬚ |
-| 4 | Build Miner node runtime: contract ingestion → LLM inference → structured threat output (JSON) | ⬚ |
-| 5 | Build Validator node runtime: threat verification via forked EVM simulation (Anvil/Hardhat) | ⬚ |
-| 6 | Implement synthetic challenge generation pipeline for Miner evaluation | ⬚ |
-| 7 | Design the scoring & slashing mechanism for Miner accuracy tracking | ⬚ |
+| 1 | Integrate **Groq LLaMA-3 70B** as primary AI auditing engine via serverless API | ✅ |
+| 2 | Integrate **DeepSeek V3** as secondary AI engine with dual-model selector | ✅ |
+| 3 | Build **Live AI Scanner** — production-ready smart contract audit interface | ✅ |
+| 4 | Fine-tune `DeepSeek-Audit-7B` on curated Solidity vulnerability datasets (SWC Registry, Damn Vulnerable DeFi) | 🔄 |
+| 5 | Fine-tune `CodeLlama-Security-34B` for Rust/Anchor (Solana) contract analysis | 🔄 |
+| 6 | Develop the **Proof-of-Audit** consensus algorithm specification | ⬚ |
+| 7 | Build Miner node runtime: contract ingestion → LLM inference → structured threat output (JSON) | ⬚ |
+| 8 | Build Validator node runtime: threat verification via forked EVM simulation (Anvil/Hardhat) | ⬚ |
+| 9 | Implement synthetic challenge generation pipeline for Miner evaluation | ⬚ |
+| 10 | Design the scoring & slashing mechanism for Miner accuracy tracking | ⬚ |
 
 **📊 KPIs:**
 - Achieve **>85% detection rate** on known vulnerability benchmarks (Reentrancy, Flash Loan, Integer Overflow)
 - Reduce false positive rate to **<5%** via Validator simulation layer
-- Process a single contract audit in under **30 seconds**
+- Process a single contract audit in under **30 seconds** ✅ *(achieved <8s via Groq)*
 
 ---
 
@@ -204,6 +215,9 @@ The UI is fully live and provides a realistic, interactive representation of how
 | **Styling** | TailwindCSS | Utility-first responsive design system |
 | **Iconography** | Lucide React | Consistent, accessible SVG icon library |
 | **Data Visualization** | Recharts | Interactive charts for subnet analytics |
+| **AI Engine 1** | Groq API (LLaMA-3 70B) | Ultra-fast LLM inference for smart contract auditing |
+| **AI Engine 2** | DeepSeek API (DeepSeek V3) | Deep reasoning-focused contract analysis |
+| **Backend (Serverless)** | Vercel Serverless Functions | API routes for AI model proxying |
 | **Deployment** | Vercel | Edge-optimized hosting with auto-deploy |
 | **Version Control** | GitHub | Source of truth with branch protection |
 
@@ -222,7 +236,7 @@ We have formalized our logic and conceptual design into comprehensive documentat
 
 ## 🚀 Getting Started
 
-To run the Aegis-Net simulation dashboard locally:
+To run the Aegis-Net dashboard locally:
 
 ```bash
 # 1. Clone the repository
@@ -232,12 +246,30 @@ cd AEGIS-NET
 # 2. Install dependencies
 npm install
 
-# 3. Start the development server
+# 3. Set up environment variables
+# Create a .env.local file in the root directory:
+cp .env.example .env.local
+# Then add your API keys:
+# GROQ_API_KEY=your_groq_api_key_here
+# DEEPSEEK_API_KEY=your_deepseek_api_key_here
+
+# 4. Start the development server
 npm run dev
 
-# 4. Open in your browser
+# 5. Open in your browser
 # → http://localhost:5173
 ```
+
+### 🔑 API Keys Setup
+
+The **Live AI Scanner** requires API keys to function. Get them for free:
+
+| Provider | Get API Key | Model Used |
+|:--|:--|:--|
+| **Groq** | [console.groq.com/keys](https://console.groq.com/keys) | LLaMA-3 70B (8192 ctx) |
+| **DeepSeek** | [platform.deepseek.com/api_keys](https://platform.deepseek.com/api_keys) | DeepSeek V3 (Chat) |
+
+> ⚠️ **Note:** API keys are stored in `.env.local` (gitignored) and as encrypted environment variables on Vercel. They are never exposed client-side.
 
 ---
 
