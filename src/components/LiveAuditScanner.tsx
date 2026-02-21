@@ -264,13 +264,21 @@ contract VulnerableVault {
     }
 }`;
 
+type Provider = 'groq' | 'deepseek';
+
+const PROVIDERS = {
+    groq: { name: 'Groq', model: 'LLaMA-3 70B', color: 'text-neon-purple', bgColor: 'bg-neon-purple/10 border-neon-purple/30', icon: '⚡' },
+    deepseek: { name: 'DeepSeek', model: 'DeepSeek V3', color: 'text-neon-cyan', bgColor: 'bg-neon-cyan/10 border-neon-cyan/30', icon: '🧠' },
+};
+
 export default function LiveAuditScanner({ onNavigate }: LiveAuditScannerProps) {
     const [contractCode, setContractCode] = useState('');
     const [auditReport, setAuditReport] = useState('');
     const [isScanning, setIsScanning] = useState(false);
     const [error, setError] = useState('');
     const [copied, setCopied] = useState(false);
-    const [scanMeta, setScanMeta] = useState<{ model?: string; timestamp?: string; usage?: any } | null>(null);
+    const [provider, setProvider] = useState<Provider>('groq');
+    const [scanMeta, setScanMeta] = useState<{ model?: string; timestamp?: string; usage?: any; providerName?: string } | null>(null);
     const resultRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -289,7 +297,7 @@ export default function LiveAuditScanner({ onNavigate }: LiveAuditScannerProps) 
             const response = await fetch('/api/audit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contractCode: contractCode.trim() }),
+                body: JSON.stringify({ contractCode: contractCode.trim(), provider }),
             });
 
             const data = await response.json();
@@ -303,6 +311,7 @@ export default function LiveAuditScanner({ onNavigate }: LiveAuditScannerProps) 
                 model: data.model,
                 timestamp: data.timestamp,
                 usage: data.usage,
+                providerName: data.providerName || PROVIDERS[provider].name,
             });
 
             // Scroll to results
@@ -351,9 +360,9 @@ export default function LiveAuditScanner({ onNavigate }: LiveAuditScannerProps) 
                         <span className="text-gray-600 text-xs font-mono hidden sm:block">/ LIVE AI SCANNER</span>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="hidden sm:flex items-center gap-2 glass-card px-3 py-1.5">
-                            <Brain className="w-3.5 h-3.5 text-neon-purple" />
-                            <span className="text-neon-purple text-xs font-mono">LLaMA-3 70B</span>
+                        <div className={`hidden sm:flex items-center gap-2 glass-card px-3 py-1.5 border ${PROVIDERS[provider].bgColor}`}>
+                            <Brain className={`w-3.5 h-3.5 ${PROVIDERS[provider].color}`} />
+                            <span className={`${PROVIDERS[provider].color} text-xs font-mono`}>{PROVIDERS[provider].icon} {PROVIDERS[provider].model}</span>
                         </div>
                         <div className="flex items-center gap-2 glass-card px-3 py-1.5">
                             <div className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
@@ -368,14 +377,14 @@ export default function LiveAuditScanner({ onNavigate }: LiveAuditScannerProps) 
                 <div className="mb-8">
                     <div className="inline-flex items-center gap-2 glass-card px-4 py-2 mb-4 animate-fade-in-up">
                         <Zap className="w-3.5 h-3.5 text-neon-green" />
-                        <span className="text-neon-green text-xs font-mono tracking-wider">POWERED BY GROQ × BITTENSOR SUBNET 47</span>
+                        <span className="text-neon-green text-xs font-mono tracking-wider">POWERED BY GROQ × DEEPSEEK × BITTENSOR SUBNET 47</span>
                     </div>
                     <h1 className="font-orbitron text-3xl md:text-4xl font-bold text-white mb-2 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
                         Live AI Smart Contract <span className="neon-text">Scanner</span>
                     </h1>
                     <p className="text-gray-500 text-sm max-w-2xl animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                         Paste your Solidity code below and let our AI miner swarm hunt for zero-day vulnerabilities in real-time.
-                        Powered by <span className="text-neon-purple font-semibold">LLaMA-3 70B</span> fine-tuned for smart contract security.
+                        Choose your AI engine: <span className="text-neon-purple font-semibold">Groq LLaMA-3 70B</span> or <span className="text-neon-cyan font-semibold">DeepSeek V3</span>.
                     </p>
                 </div>
 
@@ -424,6 +433,31 @@ contract MyContract {
                             </div>
                         </div>
 
+                        {/* AI Model Selector */}
+                        <div className="glass-card p-3">
+                            <div className="flex items-center gap-2 mb-2">
+                                <Brain className="w-3.5 h-3.5 text-gray-500" />
+                                <span className="text-gray-500 text-xs font-mono">SELECT AI ENGINE</span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                                {(Object.entries(PROVIDERS) as [Provider, typeof PROVIDERS.groq][]).map(([key, prov]) => (
+                                    <button
+                                        key={key}
+                                        onClick={() => setProvider(key)}
+                                        disabled={isScanning}
+                                        className={`px-4 py-2.5 rounded-lg text-xs font-mono font-bold transition-all duration-300 border flex items-center justify-center gap-2 ${provider === key
+                                                ? `${prov.bgColor} ${prov.color} shadow-lg`
+                                                : 'border-glass-border text-gray-600 hover:text-gray-400 hover:border-gray-600'
+                                            }`}
+                                    >
+                                        <span>{prov.icon}</span>
+                                        <span>{prov.name}</span>
+                                        <span className="text-[10px] opacity-60">({prov.model})</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
                         {/* Error display */}
                         {error && (
                             <div className="flex items-start gap-3 p-4 glass-card border-neon-red/30">
@@ -440,10 +474,10 @@ contract MyContract {
                             onClick={handleScan}
                             disabled={isScanning || !contractCode.trim()}
                             className={`w-full py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center justify-center gap-3 transition-all duration-300 ${isScanning
-                                    ? 'bg-cyber-dark border border-neon-cyan/20 text-gray-500 cursor-not-allowed'
-                                    : !contractCode.trim()
-                                        ? 'bg-cyber-dark border border-glass-border text-gray-600 cursor-not-allowed'
-                                        : 'neon-btn hover:shadow-[0_0_40px_rgba(0,255,245,0.3)] active:scale-[0.98]'
+                                ? 'bg-cyber-dark border border-neon-cyan/20 text-gray-500 cursor-not-allowed'
+                                : !contractCode.trim()
+                                    ? 'bg-cyber-dark border border-glass-border text-gray-600 cursor-not-allowed'
+                                    : 'neon-btn hover:shadow-[0_0_40px_rgba(0,255,245,0.3)] active:scale-[0.98]'
                                 }`}
                         >
                             {isScanning ? (
@@ -527,7 +561,7 @@ contract MyContract {
                                         </div>
                                         <div className="flex items-center gap-1.5">
                                             <div className="w-1.5 h-1.5 rounded-full bg-neon-green" />
-                                            <span className="text-[10px] font-mono text-gray-600">Powered by Groq</span>
+                                            <span className="text-[10px] font-mono text-gray-600">Powered by {scanMeta.providerName || 'AI'}</span>
                                         </div>
                                     </div>
                                 )}
