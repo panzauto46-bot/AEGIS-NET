@@ -267,7 +267,7 @@ contract VulnerableVault {
 type Provider = 'groq' | 'deepseek';
 
 const PROVIDERS = {
-    groq: { name: 'Groq', model: 'LLaMA-3 70B', color: 'text-neon-purple', bgColor: 'bg-neon-purple/10 border-neon-purple/30', icon: '⚡' },
+    groq: { name: 'Groq', model: 'LLaMA-3.3 70B', color: 'text-neon-purple', bgColor: 'bg-neon-purple/10 border-neon-purple/30', icon: '⚡' },
     deepseek: { name: 'DeepSeek', model: 'DeepSeek V3', color: 'text-neon-cyan', bgColor: 'bg-neon-cyan/10 border-neon-cyan/30', icon: '🧠' },
 };
 
@@ -446,8 +446,8 @@ contract MyContract {
                                         onClick={() => setProvider(key)}
                                         disabled={isScanning}
                                         className={`px-4 py-2.5 rounded-lg text-xs font-mono font-bold transition-all duration-300 border flex items-center justify-center gap-2 ${provider === key
-                                                ? `${prov.bgColor} ${prov.color} shadow-lg`
-                                                : 'border-glass-border text-gray-600 hover:text-gray-400 hover:border-gray-600'
+                                            ? `${prov.bgColor} ${prov.color} shadow-lg`
+                                            : 'border-glass-border text-gray-600 hover:text-gray-400 hover:border-gray-600'
                                             }`}
                                     >
                                         <span>{prov.icon}</span>

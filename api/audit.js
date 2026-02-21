@@ -21,8 +21,8 @@ export default async function handler(req, res) {
     groq: {
       apiKey: process.env.GROQ_API_KEY,
       endpoint: "https://api.groq.com/openai/v1/chat/completions",
-      model: "llama3-70b-8192",
-      name: "Groq × LLaMA-3 70B",
+      model: "llama-3.3-70b-versatile",
+      name: "Groq × LLaMA-3.3 70B",
     },
     deepseek: {
       apiKey: process.env.DEEPSEEK_API_KEY,
