@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Shield, Zap, Eye, Lock, ChevronRight, Activity, Globe, Cpu, AlertTriangle, CheckCircle, Clock, TrendingUp, Users, Database, BarChart3 } from 'lucide-react';
+import { Shield, Zap, Eye, Lock, ChevronRight, Activity, Globe, Cpu, AlertTriangle, CheckCircle, Clock, TrendingUp, Users, Database, BarChart3, Brain } from 'lucide-react';
 import { threatTickerData, networkStats } from '../data';
 
 function NetworkVisualization() {
-  const [nodes, setNodes] = useState<Array<{x: number; y: number; size: number; pulse: boolean; type: string}>>([]);
-  const [connections, setConnections] = useState<Array<{x1: number; y1: number; x2: number; y2: number; active: boolean}>>([]);
+  const [nodes, setNodes] = useState<Array<{ x: number; y: number; size: number; pulse: boolean; type: string }>>([]);
+  const [connections, setConnections] = useState<Array<{ x1: number; y1: number; x2: number; y2: number; active: boolean }>>([]);
 
   useEffect(() => {
     const nodeList = [];
@@ -65,13 +65,13 @@ function NetworkVisualization() {
               opacity={i === activeIdx ? 1 : 0.6}
             >
               {n.pulse && (
-                <animate attributeName="r" values={`${n.size*0.3};${n.size*0.6};${n.size*0.3}`} dur="3s" repeatCount="indefinite" />
+                <animate attributeName="r" values={`${n.size * 0.3};${n.size * 0.6};${n.size * 0.3}`} dur="3s" repeatCount="indefinite" />
               )}
             </circle>
             {i === activeIdx && (
               <circle cx={n.x} cy={n.y} r={n.size}
                 fill="none" stroke="#00fff5" strokeWidth="0.2" opacity="0.8">
-                <animate attributeName="r" values={`${n.size*0.5};${n.size*1.5}`} dur="1.5s" repeatCount="indefinite" />
+                <animate attributeName="r" values={`${n.size * 0.5};${n.size * 1.5}`} dur="1.5s" repeatCount="indefinite" />
                 <animate attributeName="opacity" values="0.8;0" dur="1.5s" repeatCount="indefinite" />
               </circle>
             )}
@@ -90,25 +90,22 @@ function ThreatTicker() {
       <div className="animate-ticker flex whitespace-nowrap">
         {[...threatTickerData, ...threatTickerData].map((item, i) => (
           <div key={i} className="inline-flex items-center gap-3 mx-8">
-            <span className={`inline-block w-2 h-2 rounded-full ${
-              item.status === 'CONFIRMED' ? 'bg-neon-green' :
-              item.status === 'SIMULATING' ? 'bg-neon-orange animate-pulse' : 'bg-neon-blue'
-            }`} />
+            <span className={`inline-block w-2 h-2 rounded-full ${item.status === 'CONFIRMED' ? 'bg-neon-green' :
+                item.status === 'SIMULATING' ? 'bg-neon-orange animate-pulse' : 'bg-neon-blue'
+              }`} />
             <span className="text-gray-500 font-mono text-xs">{item.contract}</span>
             <span className="text-gray-400 text-xs">|</span>
             <span className="text-gray-300 text-xs font-medium">{item.protocol}</span>
             <span className="text-gray-400 text-xs">→</span>
-            <span className={`text-xs font-semibold ${
-              item.risk === 'CRITICAL' ? 'text-neon-red' :
-              item.risk === 'MEDIUM' ? 'text-neon-orange' : 'text-neon-green'
-            }`}>{item.risk}</span>
+            <span className={`text-xs font-semibold ${item.risk === 'CRITICAL' ? 'text-neon-red' :
+                item.risk === 'MEDIUM' ? 'text-neon-orange' : 'text-neon-green'
+              }`}>{item.risk}</span>
             <span className="text-gray-400 text-xs">•</span>
             <span className="text-gray-400 text-xs">{item.threat}</span>
-            <span className={`text-xs px-2 py-0.5 rounded-full font-mono ${
-              item.status === 'CONFIRMED' ? 'bg-green-900/30 text-neon-green border border-green-800/30' :
-              item.status === 'SIMULATING' ? 'bg-orange-900/30 text-neon-orange border border-orange-800/30' :
-              'bg-blue-900/30 text-neon-blue border border-blue-800/30'
-            }`}>{item.status}</span>
+            <span className={`text-xs px-2 py-0.5 rounded-full font-mono ${item.status === 'CONFIRMED' ? 'bg-green-900/30 text-neon-green border border-green-800/30' :
+                item.status === 'SIMULATING' ? 'bg-orange-900/30 text-neon-orange border border-orange-800/30' :
+                  'bg-blue-900/30 text-neon-blue border border-blue-800/30'
+              }`}>{item.status}</span>
           </div>
         ))}
       </div>
@@ -143,7 +140,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
             <button className="text-gray-400 hover:text-neon-cyan transition-colors text-sm font-medium">Protocol</button>
             <button onClick={() => onNavigate('portal')} className="text-gray-400 hover:text-neon-cyan transition-colors text-sm font-medium">Client Portal</button>
             <button onClick={() => onNavigate('explorer')} className="text-gray-400 hover:text-neon-cyan transition-colors text-sm font-medium">Subnet Explorer</button>
-            <button className="text-gray-400 hover:text-neon-cyan transition-colors text-sm font-medium">Docs</button>
+            <button onClick={() => onNavigate('scanner')} className="text-neon-green hover:text-neon-cyan transition-colors text-sm font-semibold flex items-center gap-1"><Brain className="w-3.5 h-3.5" />Live Scanner</button>
           </div>
           <button onClick={() => onNavigate('portal')} className="neon-btn px-5 py-2 rounded-lg font-orbitron text-xs tracking-wider font-semibold">
             LAUNCH APP
@@ -154,7 +151,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
       {/* Hero Section */}
       <section className="relative pt-24 min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0 cyber-grid hex-pattern animate-grid-move opacity-50" />
-        
+
         {/* Network Visualization Background */}
         <div className="absolute inset-0 top-20">
           <NetworkVisualization />
@@ -172,23 +169,27 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               <div className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
               <span className="text-neon-green text-xs font-mono tracking-wider">BITTENSOR SUBNET 47 • LIVE</span>
             </div>
-            
-            <h1 className="font-orbitron text-5xl md:text-7xl font-black text-white leading-tight mb-6 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+
+            <h1 className="font-orbitron text-5xl md:text-7xl font-black text-white leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <span className="block">AI-Powered</span>
               <span className="block neon-text">Zero-Day Exploit</span>
               <span className="block">Detection</span>
             </h1>
-            
-            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-              Real-time, Decentralized Smart Contract Security powered by <span className="text-neon-purple font-semibold">Bittensor</span>. 
+
+            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+              Real-time, Decentralized Smart Contract Security powered by <span className="text-neon-purple font-semibold">Bittensor</span>.
               Thousands of AI miners continuously scan every block, finding vulnerabilities before hackers do.
             </p>
 
-            <div className="flex flex-wrap gap-4 mb-16 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
-              <button onClick={() => onNavigate('portal')} className="neon-btn px-8 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2">
+            <div className="flex flex-wrap gap-4 mb-16 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+              <button onClick={() => onNavigate('scanner')} className="neon-btn px-8 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2 relative overflow-hidden group">
+                <span className="absolute inset-0 bg-gradient-to-r from-neon-cyan/0 via-neon-cyan/10 to-neon-cyan/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                <Brain className="w-4 h-4" /> LIVE AI SCANNER <ChevronRight className="w-4 h-4" />
+              </button>
+              <button onClick={() => onNavigate('portal')} className="neon-btn-purple px-8 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2">
                 REQUEST AUDIT <ChevronRight className="w-4 h-4" />
               </button>
-              <button onClick={() => onNavigate('explorer')} className="neon-btn-purple px-8 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2">
+              <button onClick={() => onNavigate('explorer')} className="glass-card px-8 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2 text-gray-400 hover:text-neon-cyan hover:border-neon-cyan/30 transition-all border border-glass-border">
                 EXPLORE SUBNET <Eye className="w-4 h-4" />
               </button>
             </div>
@@ -383,11 +384,11 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
               Join the decentralized security revolution. Submit your smart contract and let the AI swarm protect your protocol.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button onClick={() => onNavigate('portal')} className="neon-btn px-10 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2">
-                <Activity className="w-4 h-4" /> START AUDIT
+              <button onClick={() => onNavigate('scanner')} className="neon-btn px-10 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2">
+                <Brain className="w-4 h-4" /> TRY LIVE AI SCANNER
               </button>
-              <button onClick={() => onNavigate('explorer')} className="neon-btn-purple px-10 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2">
-                <BarChart3 className="w-4 h-4" /> VIEW SUBNET
+              <button onClick={() => onNavigate('portal')} className="neon-btn-purple px-10 py-4 rounded-xl font-orbitron text-sm tracking-wider font-bold flex items-center gap-2">
+                <Activity className="w-4 h-4" /> CLIENT PORTAL
               </button>
             </div>
           </div>
@@ -400,7 +401,7 @@ export default function LandingPage({ onNavigate }: LandingPageProps) {
           <div className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-neon-cyan" />
             <span className="font-orbitron text-sm text-gray-500">AEGIS-NET</span>
-            <span className="text-gray-700 text-xs">© 2024</span>
+            <span className="text-gray-700 text-xs">© 2026</span>
           </div>
           <div className="flex items-center gap-6 text-gray-600 text-xs">
             <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> Uptime: {networkStats.uptime}</span>
