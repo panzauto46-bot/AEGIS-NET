@@ -12,7 +12,7 @@
   <p align="center">
     <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
     <br>
-    <i>© 2024 Pandu Dargah. All Rights Reserved.</i>
+    <i>© 2026 Pandu Dargah. All Rights Reserved.</i>
   </p>
 </div>
 
